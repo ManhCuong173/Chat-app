@@ -180,7 +180,6 @@ socket.on('response-send-request-chat', (data) => {
         });
         navbar.style.display = 'block';
         main.style.height = '90%';
-        main.style.borderRadius = '3rem';
       }
 
       contactUserName.innerHTML = data.senderName;
@@ -195,7 +194,6 @@ socket.on('response-accept-request-chat', (data) => {
   chatWrapper.style.display = 'flex';
   navbar.style.display = 'block';
   main.style.height = '90%';
-  main.style.borderRadius = '3rem';
   contactUserName.innerHTML = data.receiverName;
 });
 
