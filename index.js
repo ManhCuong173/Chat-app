@@ -40,6 +40,6 @@ app.post('/image', (req, res) => {
   });
 });
 
-server.listen(port, () => {
+server.listen(process.env.PORT || 3000, () => {
   console.log(`Run successfully at ${port}`);
 });
