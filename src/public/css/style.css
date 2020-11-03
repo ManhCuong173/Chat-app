@@ -178,7 +178,6 @@ main .section__chat--wrapper .chat__input--wrapper .send__message {
     background: #55a7b4;
     user-select: none;
 }
-}
 
 
 main .section__contact--wrapper .contact__result {
@@ -304,7 +303,8 @@ i.fal.fa-images.image__choose {
 .emojionearea{
     margin-left: 25px;
     position: relative;
-    width: 300px;
+    width: calc(100% - 25px);
+    border-radius: 5rem;
   }
   
   .emojionearea-button{

@@ -1,5 +1,6 @@
 let findContact = (io) => {
   let clients = {};
+  let contactID = '';
 
   io.on('connection', (socket) => {
     clients[socket.id] = {
@@ -34,6 +35,8 @@ let findContact = (io) => {
     });
 
     socket.on('accept-request-chat', (data) => {
+      contactID = data.contactSocketID;
+
       socket.to(data.contactSocketID).emit('response-accept-request-chat', {
         senderID: socket.id,
         message: `Người dùng ${data.receiverName} chấp nhận yêu cầu kết nối`,
@@ -55,6 +58,8 @@ let findContact = (io) => {
 
     socket.on('disconnect', () => {
       delete clients[socket.id];
+      socket.to(contactID).emit('response-cancel-chat', 'Người dùng đã thoát');
+      contactID = '';
     });
   });
 };
