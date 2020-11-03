@@ -34,6 +34,22 @@ document.addEventListener('click', function (e) {
       receiverID: contactid,
     });
   }
+
+  if (e.target && e.target.className == 'imageMessageChat') {
+    let imgScalable = e.target.getAttribute('data-scale');
+    if (imgScalable == 'true') {
+      e.target.style.position = 'static';
+      e.target.style.transform = 'translate(0,0) scale(1) ';
+      e.target.setAttribute('data-scale', 'false');
+      return;
+    }
+
+    e.target.style.position = 'fixed';
+    e.target.style.top = '50%';
+    e.target.style.left = '50%';
+    e.target.style.transform = 'translate(-50%,-50%) scale(2.5)';
+    e.target.setAttribute('data-scale', 'true');
+  }
 });
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -98,7 +114,7 @@ document.addEventListener('DOMContentLoaded', () => {
           <div style='width:100%; display:flex; justify-content: flex-end'>
             <img src="data:${data.mimetype}; base64, ${bufferToBase64(
             data.buffer.data
-          )}" style='width:20rem;height:20rem;border-radius:none'/>
+          )}" class='imageMessageChat' data-scale='false'/>
           </div>
           `
         );
@@ -220,7 +236,7 @@ socket.on('response-send-image', (data) => {
           <div style='width:100%; display:flex; justify-content: flex-start'>
             <img src="data:${data.mimetype}; base64, ${bufferToBase64(
       data.buffer.data
-    )}" style='width:20rem;height:20rem;border-radius:none'/>
+    )}" class='imageMessageChat' data-scale='false'/>
           </div>
           `
   );

@@ -57,8 +57,8 @@ let findContact = (io) => {
     });
 
     socket.on('disconnect', () => {
-      delete clients[socket.id];
       socket.to(contactID).emit('response-cancel-chat', 'Người dùng đã thoát');
+      delete clients[socket.id];
       contactID = '';
     });
   });
