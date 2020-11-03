@@ -98,7 +98,7 @@ document.addEventListener('DOMContentLoaded', () => {
           <div style='width:100%; display:flex; justify-content: flex-end'>
             <img src="data:${data.mimetype}; base64, ${bufferToBase64(
             data.buffer.data
-          )}" style='width:10rem;height:10rem;border-radius:none'/>
+          )}" style='width:20rem;height:20rem;border-radius:none'/>
           </div>
           `
         );
@@ -222,7 +222,7 @@ socket.on('response-send-image', (data) => {
           <div style='width:100%; display:flex; justify-content: flex-start'>
             <img src="data:${data.mimetype}; base64, ${bufferToBase64(
       data.buffer.data
-    )}" style='width:10rem;height:10rem;border-radius:none'/>
+    )}" style='width:20rem;height:20rem;border-radius:none'/>
           </div>
           `
   );

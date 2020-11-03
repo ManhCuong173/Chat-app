@@ -268,7 +268,7 @@ main .section__chat--wrapper .chat__display--inner::-webkit-scrollbar {
     position: relative;
     float: right;
     padding-top: 1.5rem;
-    right: 4rem;
+    right: 6rem;
 }
 
 input.send__image--input {
