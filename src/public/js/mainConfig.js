@@ -1,1 +1,1 @@
-const socket = io('http://localhost:3000');
+const socket = io('https://chat-application-simplee.herokuapp.com/');
