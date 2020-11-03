@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang='en'>
+
+<head>
+    <title>
+        Chat App
+    </title>
+    <meta charset='UTF-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.rawgit.com/mervick/emojionearea/master/dist/emojionearea.min.css">
+    <link rel="stylesheet" href="emojiArena/emojionearea/dist/emojionearea.min.css">
+    <link rel="stylesheet" href="emojione/extras/css/emojione.css">
+    <link rel="stylesheet" href="emojione/extras/css/emojione-awesome.css">
+    <link rel="stylesheet" href="font_awesome/css/all.min.css">
+    <link rel='stylesheet' href='css/style.css' />
+</head>
+
+<body>
+    <div class="app">
+        <div class='wrapper__outer'>
+            <div class='wrapper__inner row'>
+                <nav class='col-12 col-sm-12 col-md-2 col-lg-2'>
+                    <div class="section__list-contact">
+                        <ul class="member__outer">
+                            <li class="member__inner">
+                                <div class='member__item'>
+                                    <i class="fal fa-user" style="color: #1a1a1a; margin-right: 0.5rem"></i><span class='contact__name'></span>
+                                </div>
+                            </li>
+                            <li class="member__inner">
+                                <div class='member__item member__logoff'>
+                                    <i class="fal fa-power-off" style="color: #1a1a1a; margin-right: 0.5rem; font-size: 2rem"></i>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </nav>
+                <main class='col-12 col-sm-12 col-md-10 col-lg-10'>
+                    <%- include("contact/findContact") %>
+
+                        <%- include("chat/chatSection") %>
+                </main>
+            </div>
+        </div>
+    </div>
+</body>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.1.1/socket.io.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/5.4.1/bootbox.min.js" integrity="sha512-eoo3vw71DUo5NRvDXP/26LFXjSFE1n5GQ+jZJhHz+oOTR4Bwt7QBCjsgGvuVMQUMMMqeEvKrQrNEI4xQMXp3uA==" crossorigin="anonymous"></script>
+<script type="text/javascript" src="https://cdn.rawgit.com/mervick/emojionearea/master/dist/emojionearea.min.js"></script>
+<script src='http://localhost:3000/socket.io/socket.io.js'></script>
+<script src="emojione/lib/js/emojione.min.js"></script>
+
+<script>
+    $(document).ready(function() {
+        $("#emojionearea1").emojioneArea({
+            standalone: false,
+            pickerPosition: 'top',
+            filtersPosition: 'bottom',
+            tones: false,
+            autocomplete: false,
+            inline: true,
+            hidePickerOnBlur: true,
+            search: false,
+            shortnames: true,
+            saveEmojisAs: 'unicode',
+            events: {
+                keyup: function(editor, event) {
+                    if (event.key === 'Enter') {
+                        socket.emit('send-message', {
+                            receiverID: contactSocketID,
+                            message: this.getText(),
+                        });
+                        chatSection.insertAdjacentHTML(
+                            'beforeend',
+                            `
+                            <div style='width:100%; display:flex; justify-content: flex-end'>
+          <div class='message__content--sender'>${this.getText()}<div>
+      </div>
+                            `
+                        );
+                        this.setText('');
+                        let newestElement = document.querySelectorAll('.chat__display--inner>div');
+                        newestElement = newestElement[newestElement.length - 1]
+                        newestElement.scrollIntoView();
+                    }
+                },
+                click: function(editor, event) {
+                    console.log((event.target.className));
+                }
+            }
+        });
+    })
+</script>
+<!--Libraries-->
+<script src='js/mainConfig.js'></script>
+<script src="js/userInit.js"></script>
+
+
+</html>
